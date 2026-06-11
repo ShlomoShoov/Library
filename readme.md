@@ -55,7 +55,20 @@ The system consists of those things:
 
 **that's all :)**
 
------
+
+
+_____
+## Check List to buil this Project:
+
+**&#x2611;** build the files structure \
+**&#x2610;** build a basic server and  check connection to data base \
+**&#x2610;** build the basic libraries and files **without** write the CRUD functions, just make sure that we can start testing \
+**--start coding root by root**\
+**&#x2610;** create a test for the root we are do \
+**&#x2610;** build the function one by one and router\
+**&#x2610;** test this route
+
+---
 ## Files structure
 
 ```
@@ -67,6 +80,7 @@ library-api/
 │ │ ├── db_connection.py
 │ │ ├── book_db.py
 │ │ └── member_db.py
+│ │ └── crud_manager.py
 │ ├── routes/
 │ │ ├── book_routes.py
 │ │ ├── member_routes.py
@@ -78,6 +92,7 @@ library-api/
 ├── requirements.txt
 └── .gitignore
 ```
+
 
 ---
 
@@ -175,6 +190,7 @@ default; `is_active=True, total_borrows=0`
 |**Error Name**| **When does it Happen** | **What do we return to the user**|
 |---|---|---|
 |*`UserNotExists`*| we try to find or do an action on a user that does not exists| 404 user (id) not found|
+|*`UserInactive`*| when we try to borrow book from inactive user| 400/409 user in active, can not barrow books|
 |*`MailExist`*| we try to create or update a mail with a mail that exists | 400/409 {mail} is already exists|
 |*`OverTheBarrowLimit`*|we try to barrow a book for a user but it has 3 books borrowed|400/409 you already got to the max borrowed books (3)
 
@@ -182,7 +198,9 @@ default; `is_active=True, total_borrows=0`
 ### book table management
 |**Error Name**| **When does it Happen** | **What do we return to the user**|
 |---|---|---|
-|*`
+|*`BookNotExists`*| when we try to found or do things about a book that does'not exists| 404 book not found
+|*`BookIsBorrowed`* | when we try to borrow a book is already borrowed | 400/409 book is already borrowed|
+|*`BookIsBorrowedToOtherUser`*| when we try to return a book for a user that borrowed to other user|400/409 book is borrowed to other user
 
 ---
 
