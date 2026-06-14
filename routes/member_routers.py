@@ -17,3 +17,6 @@ def create_member(data:NewMemberModel):
     except library_manager.EmailExist:
         raise HTTPException(status_code=400, detail='email is already exists for another user.')
     
+@router.get('')
+def get_members():
+    return manager.get_all_members()

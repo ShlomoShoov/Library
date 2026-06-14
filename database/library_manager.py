@@ -66,5 +66,12 @@ class LibraryManager:
                 
         return books
     
+    def get_all_members(self):
+        with get_connection() as conn:
+            with conn.cursor(dictionary=True) as cursor:
+                members = self.member_manager.get_all_members(cursor=cursor)
+
+        return members
     
+
     

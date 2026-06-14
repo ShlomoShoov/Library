@@ -72,5 +72,12 @@ class MemberTableManagement:
                 """
         cursor.execute(query, values)
 
+    def get_all_members(self, cursor):
+        query = f"""
+                SELECT * FROM {self.table_name}
+                """
+        cursor.execute(query)
+        return cursor.fetchall()
+
 
 
