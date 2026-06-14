@@ -63,7 +63,7 @@ class BookTableManager:
 
     def get_all_books(self, cursor) -> list[dict]:
         query = f"""
-                SELECT * FROM {self.table}
+                SELECT * FROM {self.table_name}
                 """
         cursor.execute(query)
         return cursor.fetchall()

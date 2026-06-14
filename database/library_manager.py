@@ -59,6 +59,12 @@ class LibraryManager:
                 self.member_manager.create_member(cursor=cursor,data=data)
                 conn.commit()
 
+    def get_all_books(self):
+        with get_connection() as conn:
+            with conn.cursor(dictionary=True) as cursor:
+                books = self.book_manager.get_all_books(cursor=cursor)
+                
+        return books
     
-
+    
     
