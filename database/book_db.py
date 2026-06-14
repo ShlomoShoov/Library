@@ -68,11 +68,38 @@ class BookTableManager:
         cursor.execute(query)
         return cursor.fetchall()
     
-    def get_book(self,cursor, book_id:int):
+    def get_book(self,cursor, book_id:int, lock:bool=False):
         query = f"""
                 SELECT * FROM {self.table_name} 
-                WHERE id=%s
+                WHERE id=%s {"FOR UPDATE" if lock else ""}
                 """
         cursor.execute(query, (book_id,))
         return cursor.fetchone()
+    
+    def update_book(self,cursor, book_id:int, new_data:dict)->bool:
+        keys = [f"{key}=%s" for key in new_data.keys()]
+        keys = ",".join(keys)
+        values = list(new_data.values()) + [book_id]
+        query = f"""
+                UPDATE {self.table_name} SET 
+                {keys} WHERE id=%s
+
+     
+                """
+        cursor.execute(query, values)
+        return cursor.rowcount > 0
+    
+    def count_active_borrows_by_member(self,cursor, member_id)->int:
+        dict_key = 'cnt'
+        query = f"""
+                SELECT COUNT(*) AS {dict_key} FROM {self.table_name} WHERE borrowed_by_member_id=%s
+                """
+        cursor.execute(query, (member_id,))
+        data = cursor.fetchone()
+        cnt = data[dict_key]
+        return cnt
+
+
+
+
 

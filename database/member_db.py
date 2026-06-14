@@ -57,7 +57,7 @@ class MemberTableManagement:
                 SELECT * from {self.table_name} WHERE email=%s
                 """
         cursor.execute(query, (email,))
-        return cursor.rowcount == 0
+        return cursor.rowcount >0
 
     def create_member(self, cursor, data:dict):
         """
@@ -79,13 +79,32 @@ class MemberTableManagement:
         cursor.execute(query)
         return cursor.fetchall()
     
-    def get_member(self, cursor, member_id:int):
+    def get_member(self, cursor, member_id:int, lock:bool=False):
         query = f"""
                 SELECT * FROM {self.table_name} 
-                WHERE id=%s
+                WHERE id=%s  {"FOR UPDATE" if lock else ""}
                 """
         cursor.execute(query, (member_id,))
         return cursor.fetchone()
+    
+    def update_member(self, cursor, member_id, new_data):
+        keys = [f"{key}=%s" for key in new_data.keys()]
+        keys = ",".join(keys)
+        values = list(new_data.values()) + [member_id]
+        query = f"""
+                UPDATE {self.table_name} SET 
+                {keys} WHERE id=%s
+
+     
+                """
+        cursor.execute(query, values)
+        return cursor.rowcount > 0
+    
+    def increment_borrows(self, cursor, member_id):
+        query = f"""
+                UPDATE {self.table_name} SET total_borrows=total_borrows+1 WHERE id=%s
+                """
+        cursor.execute(query, (member_id,))
 
 
 
