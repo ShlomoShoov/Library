@@ -217,8 +217,12 @@ class LibraryManager:
                 self.book_manager.update_book(cursor=cursor, book_id=book_id,new_data=update_data_book)
                 conn.commit()
 
-    def activate_member(member_id):
-        pass
-                
+    def activate_member(self, member_id):
+        update_data = {"is_active":True}
+        self.update_member(member_id=member_id,new_data=update_data)
 
-                
+    def deactivate_member(self, member_id):
+        update_data = {"is_active":False}
+        self.update_member(member_id=member_id,new_data=update_data)
+    
+    

@@ -45,3 +45,23 @@ def update_member(id: int, new_data: UpdateMemberModel):
     except library_manager.UserNotExists:
         raise HTTPException(
             status_code=404, detail=f"{id} -> member not found")
+
+@router.put("/{id}/activate")
+def activate_member(id:int):
+    try:
+        manager.activate_member(member_id=id)
+
+    except library_manager.UserNotExists:
+        raise HTTPException(
+            status_code=404, detail=f"{id} -> member not found")
+
+@router.put("/{id}/deactivate")
+def deactivate_member(id:int):
+    try:
+        manager.deactivate_member(member_id=id)
+
+    except library_manager.UserNotExists:
+        raise HTTPException(
+            status_code=404, detail=f"{id} -> member not found")
+
+    
