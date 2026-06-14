@@ -105,7 +105,7 @@ class BookTableManager:
                 SELECT COUNT(*) AS {key} from {self.table_name} 
                 """
         cursor.execute(query)
-        res = cursor.fetchall()
+        res = cursor.fetchone()
         return res[key]
     
     def cnt_available_books(self,cursor)->int:
@@ -114,15 +114,17 @@ class BookTableManager:
                 SELECT COUNT(is_available) AS {key} from {self.table_name} 
                 """
         cursor.execute(query)
-        res = cursor.fetchall()
+        res = cursor.fetchone()
         return res[key]
     
     def get_cnt_by_genre(self, cursor):
         query = f"""
-                SELECT genre AS Genre, COUNT(genre) AS Count FROM {self.table_name} GROUP BY genre
+                SELECT genre AS Genre, COUNT(*) AS Count FROM {self.table_name} GROUP BY genre
                 """
-        res = query.execute(query)
+        cursor.execute(query)
+        res = cursor.fetchall()
         return res
+    
     
 
 

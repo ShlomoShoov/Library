@@ -2,3 +2,4 @@
 instructions.md
 .vscode
 __pycache__
+*.log

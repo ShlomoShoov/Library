@@ -111,7 +111,8 @@ class MemberTableManagement:
         query = f"""
                 SELECT COUNT(*) AS {key} FROM {self.table_name} WHERE is_active=True
                 """
-        res = cursor.execute(query)
+        cursor.execute(query)
+        res = cursor.fetchone()
         return res[key]
 
     def get_top_member(self, cursor)->dict:

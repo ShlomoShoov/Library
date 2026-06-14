@@ -19,10 +19,12 @@ needed for the library management.
 `OverTheBarrowLimit` -> we try to barrow a book for a user but it has 3 books borrowed
 
 """
-from database.db_connection import get_connection
+from database.db_connection import Connection
 from database.book_db import BookTableManager
 from database.member_db import MemberTableManagement
 
+connection = Connection()
+get_connection = connection.get_connection
 
 class EmailExist(Exception):
     """
