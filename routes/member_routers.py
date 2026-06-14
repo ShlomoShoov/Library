@@ -20,3 +20,12 @@ def create_member(data:NewMemberModel):
 @router.get('')
 def get_members():
     return manager.get_all_members()
+
+@router.get("/{id}")
+def get_member(id:int):
+    try:
+        return manager.get_member_by_id(member_id=id)
+    except library_manager.UserNotExists:
+        raise HTTPException(status_code=404, detail=f"{id} -> member not found")
+    
+    

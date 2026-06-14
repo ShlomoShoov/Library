@@ -78,6 +78,14 @@ class MemberTableManagement:
                 """
         cursor.execute(query)
         return cursor.fetchall()
+    
+    def get_member(self, cursor, member_id:int):
+        query = f"""
+                SELECT * FROM {self.table_name} 
+                WHERE id=%s
+                """
+        cursor.execute(query, (member_id,))
+        return cursor.fetchone()
 
 
 

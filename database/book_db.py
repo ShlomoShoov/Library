@@ -67,3 +67,12 @@ class BookTableManager:
                 """
         cursor.execute(query)
         return cursor.fetchall()
+    
+    def get_book(self,cursor, book_id:int):
+        query = f"""
+                SELECT * FROM {self.table_name} 
+                WHERE id=%s
+                """
+        cursor.execute(query, (book_id,))
+        return cursor.fetchone()
+

@@ -31,6 +31,18 @@ class EmailExist(Exception):
     """
     pass
 
+class BookNotExists(Exception):
+    """
+    when we try to found or do things about a book that does not exists.
+    """
+    pass
+
+class UserNotExists(Exception):
+    """
+    
+    we try to find or do an action on a user that does not exists
+    """
+    pass
 
 
 class LibraryManager:
@@ -74,4 +86,22 @@ class LibraryManager:
         return members
     
 
+    def get_book_by_id(self, book_id:int):
+        with get_connection() as conn:
+            with conn.cursor(dictionary=True,buffered=True) as cursor:
+                book = self.book_manager.get_book(cursor=cursor, book_id=book_id)
+
+        if book is None:
+            raise BookNotExists
+        return book
     
+        
+    def get_member_by_id(self, member_id:int):
+        with get_connection() as conn:
+            with conn.cursor(dictionary=True, buffered=True) as cursor:
+                member = self.member_manager.get_member(cursor=cursor, member_id=member_id)
+
+        if member is None:
+            raise UserNotExists
+        return member
+        
