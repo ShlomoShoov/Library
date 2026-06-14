@@ -1,4 +1,4 @@
 .venv
-__pycharm__
 instructions.md
 .vscode
+__pycache__

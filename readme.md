@@ -38,8 +38,8 @@ The system consists of those things:
 
 - `docker pull mysql:latest`
 
-- `docker run --name library-sql mysql 
--e MYSQL_ROOT_PASSWORD = secret -e MYSQL_DATABASE = library_db -p 3306:3306 -d mysql:latest`
+- `docker run --name library-sql 
+-e MYSQL_ROOT_PASSWORD=secret -e MYSQL_DATABASE=library_db -p 3306:3306 -d mysql:latest`
 
 - `docker start library-sql`
 
@@ -95,6 +95,13 @@ library-api/
 
 
 ---
+
+## files usage
+
+- db_connection:
+This file is handle the Data Base connection and Tables setup and parameters
+- book.py
+
 
 ## Database Information
 
