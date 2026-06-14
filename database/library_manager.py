@@ -217,4 +217,8 @@ class LibraryManager:
                 self.book_manager.update_book(cursor=cursor, book_id=book_id,new_data=update_data_book)
                 conn.commit()
 
+    def activate_member(member_id):
+        pass
+                
+
                 

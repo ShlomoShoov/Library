@@ -59,5 +59,18 @@ def borrow_book(id:int, member_id:int):
         error_details = e.args[0]
         raise HTTPException(status_code=400, detail=f"you reach the limit of book borrowing: {error_details} ")
 
-# @router.put("/{id}/return/{member_id}")
-# def return_book()
+@router.put("/{id}/return/{member_id}")
+def return_book(id:int, member_id:int):
+    try:
+        manager.return_book(book_id=id, member_id=member_id)
+    except library_manager.BookNotExists:
+        raise HTTPException(status_code=404, detail=f'you can not return book id- {id} -> is not exists')
+    
+    except library_manager.UserNotExists:
+        raise HTTPException(
+            status_code=404, detail=f"{id} -> member not found")
+    
+    except library_manager.BookIsBorrowedToOtherUser:
+        raise HTTPException(
+            status_code=400, detail=f"book {id} is not borrowed to {member_id}"
+        )
