@@ -98,7 +98,32 @@ class BookTableManager:
         data = cursor.fetchone()
         cnt = data[dict_key]
         return cnt
-
+    
+    def cnt_all_books(self,cursor)->int:
+        key = 'cnt'
+        query = f"""
+                SELECT COUNT(*) AS {key} from {self.table_name} 
+                """
+        cursor.execute(query)
+        res = cursor.fetchall()
+        return res[key]
+    
+    def cnt_available_books(self,cursor)->int:
+        key = 'cnt'
+        query = f"""
+                SELECT COUNT(is_available) AS {key} from {self.table_name} 
+                """
+        cursor.execute(query)
+        res = cursor.fetchall()
+        return res[key]
+    
+    def get_cnt_by_genre(self, cursor):
+        query = f"""
+                SELECT genre AS Genre, COUNT(genre) AS Count FROM {self.table_name} GROUP BY genre
+                """
+        res = query.execute(query)
+        return res
+    
 
 
 

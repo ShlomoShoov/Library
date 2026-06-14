@@ -106,5 +106,21 @@ class MemberTableManagement:
                 """
         cursor.execute(query, (member_id,))
 
+    def count_active_members(self, cursor)->int:
+        key = 'cnt'
+        query = f"""
+                SELECT COUNT(*) AS {key} FROM {self.table_name} WHERE is_active=True
+                """
+        res = cursor.execute(query)
+        return res[key]
+
+    def get_top_member(self, cursor)->dict:
+        query = f"""
+                SELECT * FROM {self.table_name} ORDER BY total_borrows DESC
+                """
+        cursor.execute(query)
+        data = cursor.fetchone()
+        return data
+
 
 
