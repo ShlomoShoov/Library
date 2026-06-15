@@ -19,7 +19,7 @@ def create_member(data: NewMemberModel):
         manager.create_member(data=data.model_dump(exclude_none=True))
         logger.info('add new member -> %s',(data,))
     except library_manager.EmailExist:
-        logger.warning('try to add user but email is exists for anther user -> %s'(data.email))
+        logger.warning('try to add user but email is exists for anther user -> %s',(data.email))
         raise HTTPException(
             status_code=400, detail='email is already exists for another user.')
 

@@ -18,7 +18,7 @@ manager = LibraryManager()
 @router.post('',status_code=201)
 def create_book(data:NewBookModel):
     manager.create_book(data.model_dump(exclude_none=True))
-    logger.info('added new book; %s'(data,))
+    logger.info('added new book; %s',(data,))
 
 @router.get('')
 def get_books():
@@ -67,7 +67,7 @@ def borrow_book(id:int, member_id:int):
     
     except library_manager.OverTheBarrowLimit as e:
         error_details = e.args[0]
-        logger.warning('tries to borrow book for user id %s but user is out of the  limit of books : %s'(member_id,error_details))
+        logger.warning('tries to borrow book for user id %s but user is out of the  limit of books : %s',(member_id,error_details))
         raise HTTPException(status_code=400, detail=f"you reach the limit of book borrowing: {error_details} ")
 
 @router.put("/{id}/return/{member_id}")

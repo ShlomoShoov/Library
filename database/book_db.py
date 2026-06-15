@@ -111,7 +111,7 @@ class BookTableManager:
     def cnt_available_books(self,cursor)->int:
         key = 'cnt'
         query = f"""
-                SELECT COUNT(is_available) AS {key} from {self.table_name} 
+                SELECT COUNT(*) AS {key} from {self.table_name} WHERE is_available = True 
                 """
         cursor.execute(query)
         res = cursor.fetchone()

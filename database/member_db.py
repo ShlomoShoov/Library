@@ -30,7 +30,7 @@ class MemberTableManagement:
         self.schema = """
                         id INT PRIMARY KEY AUTO_INCREMENT,
                         name VARCHAR(50) NOT NULL,
-                        email VARCHAR(255) NOT NULL,
+                        email VARCHAR(255) UNIQUE NOT NULL,
                         is_active BOOLEAN DEFAULT TRUE,
                         total_borrows INT DEFAULT 0
                         """
@@ -57,7 +57,7 @@ class MemberTableManagement:
                 SELECT * from {self.table_name} WHERE email=%s
                 """
         cursor.execute(query, (email,))
-        return cursor.rowcount >0
+        return cursor.fetchone() is not None
 
     def create_member(self, cursor, data:dict):
         """

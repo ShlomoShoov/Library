@@ -199,7 +199,7 @@ class LibraryManager:
                 member_borrowed_books = self.book_manager.count_active_borrows_by_member(
                     cursor=cursor, member_id=member_id)
 
-                if member_borrowed_books > self.max_books:
+                if member_borrowed_books >= self.max_books:
                     conn.rollback()
                     raise OverTheBarrowLimit(
                         f'max books to barrow -> {self.max_books} | books borrow now -> {member_borrowed_books}')
