@@ -39,7 +39,7 @@ The system consists of those things:
 - `docker pull mysql:latest`
 
 - `docker run --name library-sql 
--e MYSQL_ROOT_PASSWORD=secret -e MYSQL_DATABASE=library_db -p 3306:3306 -d mysql:latest`
+-e MYSQL_ROOT_PASSWORD=secret -e MYSQL_DATABASE=library_db -p 3315:3306 -d mysql:latest`
 
 - `docker start library-sql`
 
