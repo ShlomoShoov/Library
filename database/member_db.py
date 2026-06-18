@@ -36,6 +36,7 @@ class MemberTableManagement:
                         """
         self.create_table(cursor=cursor)
 
+    x = 5
     def create_table(self, cursor:mysql.connector.cursor):
         """
         create the function if not exists, due to the schema define
